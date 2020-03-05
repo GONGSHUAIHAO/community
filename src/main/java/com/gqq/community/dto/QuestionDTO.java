@@ -1,16 +1,17 @@
-package com.gqq.community.model;
+package com.gqq.community.dto;
 
+import com.gqq.community.model.User;
 import lombok.Data;
 
 /**
- * @program: Question
+ * @program: QuestionDTO
  * @description: TODO
  * @author: GQQ
- * @create: 2020/1/17 19:14
+ * @create: 2020/1/31 19:59
  * @Version: 1.0
  **/
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -21,5 +22,5 @@ public class Question {
     private Integer commentCount;
     private Integer viewCount;
     private Integer likeCount;
-
+    private User user;
 }

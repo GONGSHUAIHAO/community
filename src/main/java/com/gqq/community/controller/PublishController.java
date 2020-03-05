@@ -31,7 +31,7 @@ public class PublishController {
     private UserMapper userMapper;
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish() {
         return "publish";
     }
 
@@ -40,14 +40,14 @@ public class PublishController {
                             @RequestParam("description") String description,
                             @RequestParam("tag") String tag,
                             HttpServletRequest request,
-                            Model model){
+                            Model model) {
 
-        model.addAttribute("title",title);
-        model.addAttribute("description",description);
-        model.addAttribute("tag",tag);
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
 
-        if(title == null || title == ""){
-            model.addAttribute("error","标题不能为空");
+        if (title == null || title == "") {
+            model.addAttribute("error", "标题不能为空");
             return "publish";
         }
 
@@ -59,19 +59,20 @@ public class PublishController {
         User user = null;
 
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie: cookies){
-            if(cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                user = userMapper.findByToken(token);
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
+        if (cookies != null && cookies.length != 0)
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
-        }
 
-        if(user == null){
-            model.addAttribute("error","用户未登录");
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
             return "publish";
         }
         question.setCreator(user.getId());
