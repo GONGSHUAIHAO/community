@@ -17,10 +17,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private SessionInterceptor sessionInterceptor;
+    @Autowired
+    private TestInterceptor testInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(testInterceptor).addPathPatterns("/**");
 
     }
 }
